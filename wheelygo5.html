@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WheelyGo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Road+Rage&family=Aclonica&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://www.shutterstock.com/image-vector/empty-bus-stop-sky-background-600nw-2394058507.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+        h1 {
+            font-family: 'Road Rage', cursive;
+            font-size: 3.5rem;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            margin: 0;
+            color: #666; /* Medium grey color */
+            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+        }
+        .container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 750px; /* Increased width */
+            text-align: center;
+        }
+        /* First Page Text */
+        .first-page-text {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+        .paragraph {
+            font-size: 1.2rem;
+        }
+        .paragraph span {
+            display: block;
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+        .paragraph span:first-child {
+            font-family: 'Aclonica', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold; /* First span bold */
+        }
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+        .search-filter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 10px; /* Space between the filter and search bar */
+        }
+        .search-filter label {
+            font-size: 1.2rem; /* Reduced font size for filter label */
+            font-weight: normal;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+        .search-filter select {
+            width: 100%; /* Increased width to form rectangle */
+            max-width: 600px; /* Further increased max-width */
+            height: 50px; /* Adjusted height */
+            padding: 12px;
+            font-size: 1.2rem; /* Reduced font size for filter box */
+            border-radius: 5px;
+            border: none;
+            background-color: #fff;
+            color: #333;
+            font-weight: normal;
+        }
+        .search-container input {
+            width: 100%; /* Increased width */
+            max-width: 600px; /* Further increased max-width */
+            height: 40px; /* Reduced height for search bar */
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem; /* Reduced font size for search bar */
+            background-color: #fff;
+            color: #333;
+        }
+        button {
+            width: 100%; 
+            max-width: 600px; /* Further increased width to form rectangle */
+            height: 55px; /* Adjusted height for button */
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background-color: #ff7f50;
+            color: white;
+        }
+        button:hover {
+            background-color: #ff5733;
+        }
+        .hidden {
+            display: none;
+        }
+        /* Responsive Styles */
+        @media (max-width: 500px) {
+            h1 {
+                font-size: 2.5rem;
+                top: 10px;
+                left: 10px;
+            }
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+            .search-filter select,
+            .search-container input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Welcome Page -->
+    <div id="welcomePage">
+        <h1>WheelyGo</h1>
+        <div class="container">
+            <!-- First Page Text -->
+            <div class="paragraph">
+                <span>Get There, the Wheely Way!</span>
+                <span>Where will your wheels take you today? 🚍✨</span>
+                <span>Whether you're exploring new places or catching your favorite ride,</span>
+                <span>WheelyGo makes it easy to plan your journey and stay on track.</span>
+            </div>
+            <button onclick="showSearchPage()">Get Started</button>
+        </div>
+    </div>
+
+    <!-- Search Page (Hidden Initially) -->
+    <div id="searchPage" class="hidden">
+        <h1>WheelyGo</h1>
+        <div class="container">
+            <div class="search-container">
+                <div class="search-filter">
+                    <label for="filter">Search by:</label>
+                    <select id="filter">
+                        <option value="bus">Bus Name</option>
+                        <option value="stop">Stop Name</option>
+                        <option value="route">Route Name</option>
+                    </select>
+                </div>
+                <input type="text" id="searchInput" placeholder="Enter your search...">
+            </div>
+            <button onclick="startSearch()">Start the search...</button>
+            <button onclick="showWelcomePage()">Back</button>
+        </div>
+        <div id="results" style="margin-top: 20px; color: white;"></div>
+    </div>
+
+    <script>
+        function showSearchPage() {
+            document.getElementById('welcomePage').classList.add('hidden');
+            document.getElementById('searchPage').classList.remove('hidden');
+        }
+
+        function showWelcomePage() {
+            document.getElementById('searchPage').classList.add('hidden');
+            document.getElementById('welcomePage').classList.remove('hidden');
+        }
+
+        function startSearch() {
+            const filter = document.getElementById('filter').value;
+            const searchValue = document.getElementById('searchInput').value.trim();
+            const resultsContainer = document.getElementById('results');
+
+            if (!searchValue) {
+                alert('Please enter a search term.');
+                return;
+            }
+
+            resultsContainer.innerHTML = `<p>Searching for <strong>${filter}</strong>: ${searchValue}...</p>`;
+        }
+    </script>
+</body>
+</html>

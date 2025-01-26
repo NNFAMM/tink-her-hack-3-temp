@@ -15,7 +15,7 @@
 WheelyGo is a web platform designed to make commuting easier by helping users find by providing real-time information on the next bus arriving at their location. With up-to-date bus schedules and accurate arrival times, WheelyGo ensures commuters can plan their journeys efficiently, reduce wait times, and navigate public transportation with ease.
 
 ### The Problem Statement
-Many commuters, both in urban and rural areas, face challenges in navigating public transportation systems due to the lack of real-time information about bus arrivals and stop locations. It will also be a huge relief and help for disabled people, and people facing language barrier Knowing the exact time of the next bus can often be time-consuming and frustrating. This results in longer wait times and inefficient trip planning. WheelyGo aims to address this problem by providing users with accurate, real-time data on nearby bus stops and the precise arrival times of the next buses, helping commuters plan their travel more effectively and reduce unnecessary delays.
+Many commuters, both in urban and rural areas, face challenges in navigating public transportation systems due to the lack of real-time information about bus arrivals and stop locations. It will also be a huge relief and help for disabled people, and people facing language barrier, as they could depend on the website and help themselves navigate. Knowing the exact time of the next bus can often be time-consuming and frustrating. This results in longer wait times and inefficient trip planning. WheelyGo aims to address this problem by providing users with accurate, real-time data on nearby bus stops and the precise arrival times of the next buses, helping commuters plan their travel more effectively and reduce unnecessary delays.
 
 ### The Solution
 WheelyGo provides a seamless solution to urban commuting challenges by offering a web platform that helps users easily access real-time bus arrival information. The platform uses location-based services to pinpoint the closest bus stops and displays accurate, up-to-date bus schedules, including the expected arrival time of the next bus. By integrating these features, WheelyGo enables commuters to plan their journeys efficiently, minimize wait times, and improve their overall public transportation experience.
@@ -32,14 +32,14 @@ For Hardware:
 ### Implementation
 For Software:
 #### # Installation
-1. Clone the repository: `git clone [repository-link]
+1. Clone the repository: git clone repository link - "https://nnfamm.github.io/Trial/"
 2. Install dependencies: `npm install`
 
 #### # Run
 1. Run the html page on any preferred browser.
 
 ### Project Documentation
-For Software:
+For Software: database was made using sqlite.The backend was made using flask, and sqlalchemy.
 
 #### # Screenshots (Add at least 3)
 
@@ -82,8 +82,8 @@ For Hardware:
 
 ### Project Demo
 #### # Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+https://drive.google.com/drive/folders/1-9ftfFYcCfx4-WhCtrhBwNt7fWEbvd2e?usp=sharing
+
 
 #### # Additional Demos
 [Add any extra demo materials/links]

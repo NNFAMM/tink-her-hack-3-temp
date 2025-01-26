@@ -12,7 +12,7 @@
 [View the hosted project here] (https://nnfamm.github.io/Trial/)
 
 ### Project Description
-WheelyGo is a web platform designed to make commuting easier by helping users by providing the arrival time information on the next bus arriving at their location. With up-to-date bus schedules and near-accurate arrival times, WheelyGo ensures commuters can plan their journeys efficiently, reduce wait times, and navigate public transportation with ease.
+WheelyGo is a web platform designed to make commuting easier by helping users by providing the arrival time information of the next bus arriving at their location. With up-to-date bus schedules and near-accurate arrival times, WheelyGo ensures commuters can plan their journeys efficiently, reduce wait times, and navigate public transportation with ease.
 
 ### The Problem Statement
 Many commuters, both in urban and rural areas, face challenges in navigating public transportation systems especially in places they are unfamiliar with. The lack of information about bus arrivals and stop locations play a big role in this.Not knowing the exact time of the next bus can often be time-consuming and frustrating. This results in longer wait times and inefficient trip planning. WheelyGo aims to address this problem by providing users with accurate, data on nearby bus stops and the precise arrival times of the next buses, helping commuters plan their travel more effectively and reduce unnecessary delays and stress.

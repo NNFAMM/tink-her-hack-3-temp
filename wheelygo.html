@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WheelyGo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Road+Rage&family=Aclonica&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('https://www.shutterstock.com/image-vector/empty-bus-stop-sky-background-600nw-2394058507.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        h1 {
+            font-family: 'Road Rage', cursive;
+            font-size: 3.5rem;
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            margin: 0;
+            color: #666;
+            text-shadow: -2px -2px 0 black, 2px -2px 0 black, -2px 2px 0 black, 2px 2px 0 black;
+        }
+
+        .container {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 30px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 750px;
+            text-align: center;
+        }
+
+        /* First Page Text */
+        .first-page-text {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            white-space: nowrap;
+        }
+
+        .paragraph {
+            font-size: 1.2rem;
+        }
+
+        .paragraph span {
+            display: block;
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        .paragraph span:first-child {
+            font-family: 'Aclonica', sans-serif;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .search-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .search-filter {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .search-filter label {
+            font-size: 1.2rem;
+            font-weight: normal;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+
+        .search-container select {
+            width: 100%;
+            max-width: 600px;
+            height: 50px;
+            padding: 12px;
+            font-size: 1.2rem;
+            border-radius: 5px;
+            border: none;
+            background-color: #fff;
+            color: #333;
+            font-weight: normal;
+        }
+
+        .search-container input {
+            width: 100%;
+            max-width: 600px;
+            height: 40px;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            background-color: #fff;
+            color: #333;
+        }
+
+        button {
+            width: 100%;
+            max-width: 600px;
+            height: 55px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            background-color: #ff7f50;
+            color: white;
+        }
+
+        button:hover {
+            background-color: #ff5733;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .results-container {
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 30px;
+            max-width: 750px;
+            width: 90%;
+        }
+
+        .result-item {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 500px) {
+            h1 {
+                font-size: 2.5rem;
+                top: 10px;
+                left: 10px;
+            }
+
+            .container {
+                width: 90%;
+                padding: 20px;
+            }
+
+            .search-filter select,
+            .search-container input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Welcome Page -->
+    <div id="welcomePage">
+        <h1>WheelyGo</h1>
+        <div class="container">
+            <div class="paragraph">
+                <span>Get There, the Wheely Way!</span>
+                <span>Where will your wheels take you today? 🚍✨</span>
+                <span>Whether you're exploring new places or catching your favorite ride,</span>
+                <span>WheelyGo makes it easy to plan your journey and stay on track.</span>
+            </div>
+            <button onclick="showSearchPage()">Get Started</button>
+        </div>
+    </div>
+
+    <!-- Search Page (Hidden Initially) -->
+    <div id="searchPage" class="hidden">
+        <h1>WheelyGo</h1>
+        <div class="container">
+            <div class="search-container">
+                <div class="search-filter">
+                    <label for="filter">Search by:</label>
+                    <select id="filter" onchange="updateDropdowns()">
+                        <option value="stop">Stop Name</option>
+                        <option value="route">Route Name</option>
+                    </select>
+                </div>
+
+                <div id="stopDropdown" class="search-filter">
+                    <label for="stopSelect">Select a Stop:</label>
+                    <select id="stopSelect">
+                        <option value="">Select a Stop</option>
+                        <option value="Station A">Station A</option>
+                        <option value="Station B">Station B</option>
+                        <option value="Station C">Station C</option>
+                        <option value="Station D">Station D</option>
+                        <option value="Station E">Station E</option>
+                    </select>
+                </div>
+
+                <div id="routeDropdown" class="hidden">
+                    <div class="search-filter">
+                        <label for="startLocation">Start Location:</label>
+                        <select id="startLocation">
+                            <option value="">Select Start Location</option>
+                            <option value="Station A">Station A</option>
+                            <option value="Station B">Station B</option>
+                            <option value="Station C">Station C</option>
+                            <option value="Station D">Station D</option>
+                            <option value="Station E">Station E</option>
+                        </select>
+                    </div>
+                    <div class="search-filter">
+                        <label for="endLocation">End Location:</label>
+                        <select id="endLocation">
+                            <option value="">Select End Location</option>
+                            <option value="Station A">Station A</option>
+                            <option value="Station B">Station B</option>
+                            <option value="Station C">Station C</option>
+                            <option value="Station D">Station D</option>
+                            <option value="Station E">Station E</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button onclick="startSearch()">Start the search...</button>
+            <button onclick="showWelcomePage()">Back</button>
+        </div>
+    </div>
+
+    <!-- <div id="searchPage" class="hidden">
+        <h1>WheelyGo</h1>
+        <div class="container">
+            <div class="search-container">
+                <div class="search-filter">
+                    <label for="filter">Search by:</label>
+                    <select id="filter" onchange="updateDropdowns()">
+                        <option value="stop">Stop Name</option>
+                        <option value="route">Route Name</option>
+                    </select>
+                </div>
+    
+                <div id="stopDropdown" class="search-filter">
+                    <label for="stopSelect">Select a Stop:</label>
+                    <select id="stopSelect" onchange="fetchStops()">
+                        <option value="">Loading stops...</option>
+                    </select>
+                </div>
+    
+                <div id="routeDropdown" class="hidden">
+                    <div class="search-filter">
+                        <label for="startLocation">Start Location:</label>
+                        <select id="startLocation">
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                    <div class="search-filter">
+                        <label for="endLocation">End Location:</label>
+                        <select id="endLocation">
+                            <option value="">Loading...</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <button onclick="startSearch()">Start the search...</button>
+            <button onclick="showWelcomePage()">Back</button> 
+        </div>
+    </div> -->
+
+    <div id="resultsPage" class="hidden">
+        <h1>WheelyGo</h1>
+        <div class="container">
+            <h2>Search Results</h2>
+            <div id="results" class="results-container"></div>
+            <button onclick="showSearchPage()">Back to Search</button>
+        </div>
+    </div>
+
+    <script> 
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Fetch stop data for dropdown
+        fetchStops();
+    });
+
+    // Function to fetch stop data from Flask
+    async function fetchStops() {
+        try {
+            const response = await fetch('/api/stops');
+            const stops = await response.json();
+            populateStopDropdown(stops);
+        } catch (error) {
+            console.error('Error fetching stops:', error);
+        }
+    }
+
+    // Populate the stop dropdown
+    function populateStopDropdown(stops) {
+        const stopSelect = document.getElementById('stopSelect');
+        stopSelect.innerHTML = '<option value="">Select a Stop</option>'; // Clear previous options
+
+        stops.forEach(stop => {
+            const option = document.createElement('option');
+            option.value = stop.name;
+            option.textContent = stop.name;
+            stopSelect.appendChild(option);
+        });
+    }
+
+    <!-- // Function to fetch route data from Flask
+    async function fetchRoutes() {
+        try {
+            const response = await fetch('/api/routes');
+            const routes = await response.json();
+            populateRouteDropdowns(routes);
+        } catch (error) {
+            console.error('Error fetching routes:', error);
+        }
+    }
+
+    // Populate the route dropdowns (start and end locations)
+    function populateRouteDropdowns(routes) {
+        const startLocationSelect = document.getElementById('startLocation');
+        const endLocationSelect = document.getElementById('endLocation');
+        
+        // Clear previous options
+        startLocationSelect.innerHTML = '<option value="">Select Start Location</option>';
+        endLocationSelect.innerHTML = '<option value="">Select End Location</option>';
+        
+        routes.forEach(route => {
+            const startOption = document.createElement('option');
+            const endOption = document.createElement('option');
+            
+            startOption.value = route.startLocation;
+            startOption.textContent = route.startLocation;
+            startLocationSelect.appendChild(startOption);
+            
+            endOption.value = route.endLocation;
+            endOption.textContent = route.endLocation;
+            endLocationSelect.appendChild(endOption);
+        });
+    }
+        function showSearchPage() {
+            // Hide the welcome page and show the search page
+            document.getElementById('welcomePage').classList.add('hidden');
+            document.getElementById('searchPage').classList.remove('hidden');
+            document.getElementById('resultsPage').classList.add('hidden');
+        }
+
+        function showWelcomePage() {
+            // Hide all pages and show the welcome page
+            document.getElementById('searchPage').classList.add('hidden');
+            document.getElementById('resultsPage').classList.add('hidden');
+            document.getElementById('welcomePage').classList.remove('hidden');
+        }
+
+        function updateDropdowns() {
+            const filter = document.getElementById('filter').value;
+
+            // Toggle visibility based on selected filter
+            if (filter === 'stop') {
+                document.getElementById('stopDropdown').classList.remove('hidden');
+                document.getElementById('routeDropdown').classList.add('hidden');
+            } else if (filter === 'route') {
+                document.getElementById('stopDropdown').classList.add('hidden');
+                document.getElementById('routeDropdown').classList.remove('hidden');
+            }
+        }
+
+        async function startSearch() {
+            const filter = document.getElementById('filter').value;
+            let searchValue = '';
+
+            // Get search value based on filter
+            if (filter === 'stop') {
+                searchValue = document.getElementById('stopSelect').value.trim();
+            } else if (filter === 'route') {
+                const start = document.getElementById('startLocation').value.trim();
+                const end = document.getElementById('endLocation').value.trim();
+                searchValue = { start_location: start, end_location: end }; // Correct keys
+            }
+
+            // Validate input
+            if (!searchValue || (filter === 'route' && (!searchValue.start_location || !searchValue.end_location))) {
+                alert('Please fill all fields.');
+                return;
+            }
+
+            // Fetch results
+            try {
+                const response = await fetch(
+                    `/search?type=${filter}&value=${encodeURIComponent(JSON.stringify(searchValue))}`
+                );
+                const data = await response.json();
+
+                // Display results
+                const resultsHTML = data.map(item => `
+            <div class="result-item">
+                ${Object.entries(item).map(([key, val]) => `
+                    <strong>${key.replace('_', ' ')}:</strong> ${val}<br>
+                `).join('')}
+            </div>
+        `).join('');
+
+                document.getElementById('results').innerHTML = resultsHTML || '<p>No results found.</p>';
+
+            } catch (error) {
+                console.error("Search failed:", error);
+                document.getElementById('results').innerHTML = '<p>Error fetching results.</p>';
+            }
+
+            // Show results page
+            document.getElementById('searchPage').classList.add('hidden');
+            document.getElementById('resultsPage').classList.remove('hidden');
+        }
+
+        function showResultsPage() {
+            document.getElementById('searchPage').classList.add('hidden');
+            document.getElementById('resultsPage').classList.remove('hidden');
+        }
+    </script> -->
+
+</body>
+
+</html>
